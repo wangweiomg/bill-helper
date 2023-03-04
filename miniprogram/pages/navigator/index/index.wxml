@@ -1,0 +1,3 @@
+<!--pages/navigator/index/index.wxml-->
+<l-tab-bar list="{{list}}"></l-tab-bar>
+<text>pages/navigator/index/index.wxml</text>

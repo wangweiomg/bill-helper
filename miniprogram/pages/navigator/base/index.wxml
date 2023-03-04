@@ -1,0 +1,35 @@
+<!--pages/navigator/base/index.wxml-->
+<l-tab-bar list="{{list}}"></l-tab-bar>
+<text>pages/navigator/base/index.wxml</text>
+<view class="container">
+  <view class="section">
+    <navi-title title="信用卡" count="{{baseNaviConfigs.length}}"/>
+    <view class="section-content">
+      <detail-navi-card
+        wx:for="{{baseNaviConfigs}}"
+        wx:for-item="baseNaviConfigs"
+        wx:key="index"
+        icon="{{baseNaviConfigs.icon}}"
+        title="{{baseNaviConfigs.title}}"
+        componentsPath="{{baseNaviConfigs.componentsPath}}"
+        desc="{{baseNaviConfigs.desc}}"
+      />
+    </view>
+    
+
+    <navi-title title="按揭贷款" count="2"/>
+    <view class="section-content">
+      <detail-navi-card
+        wx:for="{{filterNaviConfigs}}"
+        wx:for-item="filterNaviConfigs"
+        wx:key="index"
+        icon="{{filterNaviConfigs.icon}}"
+        title="{{filterNaviConfigs.title}}"
+        componentsPath="{{filterNaviConfigs.componentsPath}}"
+        desc="{{filterNaviConfigs.desc}}"/>
+    </view>
+    <navi-title title="私人借款" count="2"/>
+    <navi-title title="信用贷" count="2"/>
+    
+  </view>
+</view>
