@@ -1,6 +1,6 @@
 // app.js
 App({
-  onLaunch: function () {
+  async onLaunch() {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力');
     } else {
@@ -13,6 +13,22 @@ App({
         env: 'cloud1-0g7b2ug65d6138e6',
         traceUser: true,
       });
+
+      await wx.cloud.callContainer({
+        "config": {
+          "env": "prod-7gaxhaj4785afe65"
+        },
+        "path": "/api/user/upsert",
+        "header": {
+          "X-WX-SERVICE": "springboot-kj23"
+        },
+        "method": "POST"
+      }).then(res => {
+        console.log('@1', res.data)
+  
+        console.log('@2', res.data.data)
+  
+      }).catch(err => console.error(err))
     }
 
     this.globalData = {};

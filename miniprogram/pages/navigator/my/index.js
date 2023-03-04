@@ -15,9 +15,9 @@ Page({
    */
   onLoad(options) {
     wx.cloud.callFunction({
-      name: 'quickstartFunctions',
+      name: 'bill',
       data: {
-        type: 'getOpenId'
+        type: 'getCardList'
       },
     }).then( res=> {
       console.log(res)

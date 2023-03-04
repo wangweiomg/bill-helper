@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "cloud-tip-modal": "/components/cloudTipModal/index",
-    "l-tab-bar": "../../dist/tab-bar/index"
+    "l-tab-bar": "/dist/tab-bar/index"
     
   }
 }

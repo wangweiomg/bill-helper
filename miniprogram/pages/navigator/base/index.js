@@ -18,7 +18,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+  
+    const result = wx.cloud.callContainer({
+      "config": {
+        "env": "prod-7gaxhaj4785afe65"
+      },
+      "path": "/api/card",
+      "header": {
+        "X-WX-SERVICE": "springboot-kj23"
+      },
+      "method": "GET"
+    }).then(res => {
+      console.log('@1', res.data)
 
+      console.log('@2', res.data.data)
+
+    }).catch(err => console.error(err))
+
+
+    
   },
 
   /**
