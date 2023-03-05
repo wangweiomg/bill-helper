@@ -14,14 +14,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    wx.cloud.callFunction({
-      name: 'bill',
-      data: {
-        type: 'getCardList'
-      },
-    }).then( res=> {
-      console.log(res)
-    }).catch(console.error)
 
   },
 
