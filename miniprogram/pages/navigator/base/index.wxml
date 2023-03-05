@@ -2,37 +2,36 @@
 <l-tab-bar list="{{list}}"></l-tab-bar>
 <view class='container'>
   <content-title name="基础信息" describe="信用卡、房贷、借贷等">
-    <content-card class="content" name="信用卡列表" desc="卡片数量: 10，总额度:100万" count="10">
+    <content-card class="content" name="信用卡列表" desc="卡片数量: 10，总额度:100万" businessId="credit_card">
       <l-list title="中信银行" icon="cart" bind:lintap="clickListItem" data-key="cart" desc="账单日:16, 还款日:账单日后20天" right-desc="额度: 68000"/>
       <l-list title="浦发银行-文" icon="cart" bind:lintap="clickListItem" data-key="pf" desc="账单日:16, 还款日:账单日后20天" right-desc="额度: 200000"/>
       <l-list title="工商银行" icon="cart" data-key="gs" desc="账单日:22，还款日:10" right-desc="额度：56000"/>
-      
-      
     </content-card>
 
-    <content-card class="content" name="有徽标元素的列表">
-      <l-list title="生成我的海报" dot-badge="{{true}}" />
-      <l-list title="消息" icon="notification" badge-count="9" badge-position="right" />
-    </content-card>
-
-    <content-card class="content" name="监听点击事件">
-      <l-list title="购物车" icon="cart" tag-content="购物车" bind:lintap="clickListItem" data-key="cart" />
-      <l-list title="设置" icon="setting" tag-content="我的" tag-color="#F4516c" bind:lintap="clickListItem" data-key="setting" />
-      <l-list title="消息" icon="notification" tag-content="消息" tag-position="right" bind:lintap="clickListItem" data-key="notification" />
+    <content-card class="content" name="银行借贷" businessId="promissory_note">
       <l-list title="帮助中心" icon="help" tag-content="帮助" tagShape="circle" tag-position="right" bind:lintap="clickListItem" data-key="help" />
+
     </content-card>
 
-    <content-card class="content" name="自定义内容的列表">
-      <l-list right-desc="生成我的海报">
-        <view slot="left-section">
-          <l-radio value="看一看" />
-        </view>
-      </l-list>
-      <l-list title="允许陌生人查看十条朋友圈">
-        <view slot="right-section">
-          <switch />
-        </view>
-      </l-list>
+    <content-card class="content" name="私人借贷" businessId="iou">
+      <l-list title="李明 2万" icon="help" tag-content="帮助" tagShape="circle" tag-position="right" bind:lintap="clickListItem" data-key="help" />
     </content-card>
+
+    <content-card class="content" name="房贷列表" businessId="house_loan">
+      <l-list title="万柳书院" icon="cart" tag-content="购物车" bind:lintap="clickListItem" data-key="cart" />
+      <l-list title="汤臣一品" icon="setting" tag-content="我的" tag-color="#F4516c" bind:lintap="clickListItem" data-key="setting" />
+      <l-list title="花城湾" icon="notification" tag-content="消息" tag-position="right" bind:lintap="clickListItem" data-key="notification" />
+      <l-list title="半岛城邦" icon="help" tag-content="帮助" tagShape="circle" tag-position="right" bind:lintap="clickListItem" data-key="help" />
+
+    </content-card>
+
+    <content-card class="content" name="自定义账单" businessId="cycle_bill">
+      <l-list title="房租-每月20号" icon="cart" tag-content="购物车" bind:lintap="clickListItem" data-key="cart" />
+      <l-list title="公益-每月1号" icon="setting" tag-content="我的" tag-color="#F4516c" bind:lintap="clickListItem" data-key="setting" />
+
+    </content-card>
+    
+
+    
   </content-title>
 </view>
