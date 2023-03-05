@@ -14,6 +14,7 @@ App({
         traceUser: true,
       });
 
+      // 保存用户信息
       await wx.cloud.callContainer({
         "config": {
           "env": "prod-7gaxhaj4785afe65"
@@ -24,6 +25,7 @@ App({
         },
         "method": "POST"
       }).then(res => {
+        // 卡片
         console.log('@1', res.data)
   
         console.log('@2', res.data.data)

@@ -1,19 +1,20 @@
-import { filterNaviConfigs, baseNaviConfigs} from './base-nav.js'
-import tabbar from "../../tabbar";
-
 // pages/navigator/base/index.js
+import tabbar from '../../tabbar'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list: tabbar,
-    filterNaviConfigs: filterNaviConfigs,
-    baseNaviConfigs: baseNaviConfigs
-
+    list: tabbar
+   
   },
-
+  clickListItem(e){
+    wx.showToast({
+      title: `点击了${e.currentTarget.dataset.key}`,
+      icon:'none'
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
