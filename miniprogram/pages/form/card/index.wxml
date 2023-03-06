@@ -3,16 +3,16 @@
     <content-title name="信用卡管理" describe="新增">
         <content-card class="content" name="添加信用卡" isShowAddIcon="{{false}}">
             <view class='buttun-wrapper'>
-                <l-form name="form" l-form-btn-class="l-form-btn-class">
+                <l-form name="form" l-form-btn-class="l-form-btn-class" bind:linsubmit="submit">
                     <l-form-item label="卡片名称:"  name="name">
-                        <l-input l-class="l-input-container-class"  id="name"  placeholder="如：工商银行 或 工商银行-朋友A" hide-label show-row="{{false}}"/>
+                        <l-input l-class="l-input-container-class"  id="name"  placeholder="如：工商银行 或 工商银行-朋友A" value="{{form.name}}" hide-label show-row="{{false}}"/>
                     </l-form-item>
                     <l-form-item label="卡片备注:"  name="remark">
                         <l-input l-class="l-input-container-class"  id="remark" placeholder="如：密码是生日、 尾号1234" value="{{form.remark}}" hide-label show-row="{{false}}"/>
                     </l-form-item>
                     
-                    <l-form-item label="卡片额度:" name="creditLimit">
-                        <l-input l-class="l-input-container-class" type="number"  id="creditLimit" value="{{form.creditLimit}}" hide-label show-row="{{false}}"/>
+                    <l-form-item label="卡片额度:" name="cardLimit">
+                        <l-input l-class="l-input-container-class" type="number"  id="cardLimit" value="{{form.creditLimit}}" hide-label show-row="{{false}}"/>
                     </l-form-item>
                     
                     <l-form-item label="账单日:" name="billDay">
@@ -20,11 +20,11 @@
                     </l-form-item>
                     
                     <l-form-item label="还款日类型:" name="repayDayType">
-                        <l-radio-group bind:linchange="changeSubmitValidate" current="1" none-checked="{{false}}" placement="row" l-class="tip-type">
+                        <l-radio-group bind:linchange="changeSubmitValidate" id="repayDayType" current="1" none-checked="{{false}}" placement="row" l-class="tip-type">
                             <l-radio key="1">
                                 固定日n
                             </l-radio>
-                            <l-radio key="0">
+                            <l-radio key="2">
                                 账单日后 n 天
                             </l-radio>
                         </l-radio-group>

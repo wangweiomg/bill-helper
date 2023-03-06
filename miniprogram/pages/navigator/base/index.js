@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: tabbar
+    list: tabbar,
+    cardList: []
    
   },
   clickListItem(e){
@@ -20,19 +21,21 @@ Page({
    */
   onLoad(options) {
   
-    const result = wx.cloud.callContainer({
+    wx.cloud.callContainer({
       "config": {
         "env": "prod-7gaxhaj4785afe65"
       },
-      "path": "/api/card",
+      "path": "/api/card/list",
       "header": {
         "X-WX-SERVICE": "springboot-kj23"
       },
       "method": "GET"
     }).then(res => {
-      console.log('@1', res.data)
+      console.log('card-list', res.data)
+      this.setData({
+        cardList: res.data.data
+      })
 
-      console.log('@2', res.data.data)
 
     }).catch(err => console.error(err))
 

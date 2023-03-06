@@ -1,5 +1,9 @@
 {
   "usingComponents": {
-    "l-tab-bar": "/dist/tab-bar/index"
+    "l-tab-bar": "/dist/tab-bar/index",
+    "content-title": "/components/content-title/index",
+    "content-card": "/components/content-card/index",
+    "l-checkbox-group": "/dist/checkbox-group/index",
+    "l-checkbox": "/dist/checkbox/index"
   }
 }

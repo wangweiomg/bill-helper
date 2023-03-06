@@ -6,17 +6,8 @@ Page({
    */
   data: {
     
-    student: {
-      name: '',
-      age: '',
-      address: ''
-    },
     form: {
-      name: '',
-      music: '',
-      sex: '',
-      desc: '',
-      score: ''
+      name: ''
     },
     loginForm: {
       loginId: '',
@@ -189,11 +180,36 @@ Page({
     });
   },
 
+  async submit(e) {
+    const {detail} = e;
+    console.log('submit', detail, detail.values)
+    
+    // 保存卡片信息
+    await wx.cloud.callContainer({
+      "config": {
+        "env": "prod-7gaxhaj4785afe65"
+      },
+      "path": "/api/card/upsert",
+      "header": {
+        "X-WX-SERVICE": "springboot-kj23"
+      },
+      "data": JSON.stringify(detail.values),
+      "method": "POST"
+    }).then(res => {
+      // 卡片
+      console.log('@1', res.data)
+      console.log('@2', res.data.data)
+
+    }).catch(err => console.error(err))
+
+
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    wx.lin.initValidateForm(this)
   },
 
   /**
