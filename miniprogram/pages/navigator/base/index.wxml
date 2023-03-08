@@ -2,10 +2,10 @@
 <l-tab-bar list="{{list}}"></l-tab-bar>
 <view class='container'>
   <content-title name="基础信息" describe="信用卡、房贷、个人借贷等">
-    <content-card class="content" name="信用卡列表" desc="卡片数量: {{cardList.length}}，总额度:100万" businessId="credit_card">
-      <l-list title="中信银行" icon="cart" bind:lintap="clickListItem" data-key="cart" desc="账单日:16, 还款日:账单日后20天" right-desc="额度: 68000"/>
-      <l-list title="浦发银行-文" icon="cart" bind:lintap="clickListItem" data-key="pf" desc="账单日:16, 还款日:账单日后20天" right-desc="额度: 200000"/>
-      <l-list title="工商银行" icon="cart" data-key="gs" desc="账单日:22，还款日:10" right-desc="额度：56000"/>
+    <content-card 
+      class="content" name="信用卡列表" 
+      desc="卡片数量: {{cardList.length}}，总额度: {{totalCardLimit}}万" 
+      businessId="credit_card">
 
       <l-list
         wx:for="{{cardList}}"
@@ -16,6 +16,7 @@
         data-key="{{card.id}}"
         desc="账单日:{{card.billDay}}，还款日:{{card.repayDayType===1 ? card.repayDayNum : '账单日后'+card.repayDayNum+'天' }}"
         right-desc="额度：{{card.cardLimit}}"
+        bind:lintap="clickListItem"
       ></l-list>
     </content-card>
 
@@ -26,14 +27,6 @@
 
     <content-card class="content" name="私人借贷" businessId="iou">
       <l-list title="李明 2万" icon="help" tag-content="帮助" tagShape="circle" tag-position="right" bind:lintap="clickListItem" data-key="help" />
-    </content-card>
-
-    <content-card class="content" name="房贷列表" businessId="house_loan">
-      <l-list title="万柳书院" icon="cart" tag-content="购物车" bind:lintap="clickListItem" data-key="cart" />
-      <l-list title="汤臣一品" icon="setting" tag-content="我的" tag-color="#F4516c" bind:lintap="clickListItem" data-key="setting" />
-      <l-list title="花城湾" icon="notification" tag-content="消息" tag-position="right" bind:lintap="clickListItem" data-key="notification" />
-      <l-list title="半岛城邦" icon="help" tag-content="帮助" tagShape="circle" tag-position="right" bind:lintap="clickListItem" data-key="help" />
-
     </content-card>
 
     <content-card class="content" name="自定义账单" businessId="cycle_bill">

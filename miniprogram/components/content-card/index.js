@@ -45,9 +45,6 @@ Component({
         case "credit_card":
           navigateTo = "/pages/form/card/index";
           break;
-        case "house_loan":
-          navigateTo = "/pages/form/house/index";
-          break;
         case "promissory_note":
           navigateTo = "/pages/form/promissory/index";
           break;

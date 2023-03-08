@@ -18,7 +18,6 @@
     "pages/navigator/base/index",
     "pages/form/promissory/index",
     "pages/form/iou/index",
-    "pages/form/house/index",
     "pages/form/card/index"
   ],
   "window": {

@@ -14,6 +14,12 @@ App({
         traceUser: true,
       });
 
+      wx.getUserInfo({
+        success: (res) =>{
+          console.log("info-->", res, res.cloudID)
+        }
+      })
+
       // 保存用户信息
       await wx.cloud.callContainer({
         "config": {

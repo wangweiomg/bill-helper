@@ -36,7 +36,7 @@
 
 
                     <view slot="submit">
-                        <l-button>提交验证</l-button>
+                        <l-button>保存</l-button>
                     </view>
                     <view slot="reset">
                         <l-button type="default" plain>重置</l-button>

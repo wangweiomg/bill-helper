@@ -1,4 +1,3 @@
-// pages/navigator/base/index.js
 import tabbar from '../../tabbar'
 Page({
 
@@ -7,7 +6,8 @@ Page({
    */
   data: {
     list: tabbar,
-    cardList: []
+    cardList: [],
+    totalCardLimit: 0
    
   },
   clickListItem(e){
@@ -31,11 +31,10 @@ Page({
       },
       "method": "GET"
     }).then(res => {
-      console.log('card-list', res.data)
       this.setData({
-        cardList: res.data.data
+        cardList: res.data.data,
+        totalCardLimit: res.data.data.map(e => e.cardLimit).reduce((prev, curr) => prev + curr, 0) / 10000
       })
-
 
     }).catch(err => console.error(err))
 

@@ -9,7 +9,25 @@ Page({
 
     list: tabbar
   },
+  onChooseAvatar(e) {
+    console.log('my, e', e, e.detail.avatarUrl)
+  },
+  getPhoneNumber(e) {
+    const code = e.detail.code
+    wx.cloud.callContainer({
+      "config": {
+        "env": "prod-7gaxhaj4785afe65"
+      },
+      "path": "/api/wx/getuserphonenumber/"+code,
+      "header": {
+        "X-WX-SERVICE": "springboot-kj23"
+      },
+      "method": "GET"
+    }).then(res => {
+      console.log('phone-->', res.data)
 
+    }).catch(err => console.error(err))
+  },
   /**
    * 生命周期函数--监听页面加载
    */
