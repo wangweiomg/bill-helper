@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/navigator/index/index",
+    "pages/navigator/todo/index",
     "pages/index/index",
     "pages/getOpenId/index",
     "pages/getMiniProgramCode/index",
@@ -34,7 +34,7 @@
     "custom": true,
     "list": [
       {
-        "pagePath": "pages/navigator/index/index",
+        "pagePath": "pages/navigator/todo/index",
         "text": "账单Todo",
         "iconPath": "images/tabbar/base.png",
         "selectedIconPath": "images/tabbar/base-select.png"

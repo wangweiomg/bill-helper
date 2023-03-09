@@ -14,29 +14,6 @@ App({
         traceUser: true,
       });
 
-      wx.getUserInfo({
-        success: (res) =>{
-          console.log("info-->", res, res.cloudID)
-        }
-      })
-
-      // 保存用户信息
-      await wx.cloud.callContainer({
-        "config": {
-          "env": "prod-7gaxhaj4785afe65"
-        },
-        "path": "/api/user/upsert",
-        "header": {
-          "X-WX-SERVICE": "springboot-kj23"
-        },
-        "method": "POST"
-      }).then(res => {
-        // 卡片
-        console.log('@1', res.data)
-  
-        console.log('@2', res.data.data)
-  
-      }).catch(err => console.error(err))
     }
 
     this.globalData = {};

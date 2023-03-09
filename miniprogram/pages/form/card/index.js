@@ -197,8 +197,13 @@ Page({
       "method": "POST"
     }).then(res => {
       // 卡片
-      console.log('@1', res.data)
-      console.log('@2', res.data.data)
+      if (res.data.code === 0) {
+
+        wx.reLaunch({
+          url: '/pages/navigator/base/index',
+        })
+
+      }
 
     }).catch(err => console.error(err))
 

@@ -1,18 +1,19 @@
 <!--pages/navigator/index/index.wxml-->
 <l-tab-bar list="{{list}}"></l-tab-bar>
 <view class='container'>
-  <content-title name="CheckBox" describe="复选框">
+  <content-title name="所有待办" describe="待处理">
     
 
     <content-card
       class="content"
-      name="自定义颜色"
+      name="信用卡待处理"
+      isShowAddIcon="{{false}}"
       >
       <view class='buttun-wrapper'>
-        <view class='title'>什么天气适合吃火锅？</view>
+        <view class='title'>已过期</view>
         <l-checkbox-group bind:linchange="change" data-index="3">
           <l-checkbox
-            l-class="l-checkbox-color"
+            l-class="l-title-class-border"
             wx:for="{{items3}}"
             wx:key="id"
             placement="{{position}}"
@@ -20,7 +21,41 @@
             checked="{{item.checked}}"
             color='#FFE57F'
             select-color='#FFE57F'
+            disabled-color="#ccc"
+            disabled="{{item.id === 1}}"
+          >
+          {{item.name}}
+          </l-checkbox>
+        </l-checkbox-group>
+
+        <view class='title todo-title'>待处理</view>
+        <l-checkbox-group bind:linchange="change" data-index="3">
+          <l-checkbox
+            l-class="l-title-class-border"
+            wx:for="{{items3}}"
+            wx:key="id"
+            placement="{{position}}"
+            key="{{item.name}}"
+            checked="{{item.checked}}"
+            disabled="{{item.id === 1}}"
+          >
+          {{item.name}}
+          </l-checkbox>
+        </l-checkbox-group>
+
+        <view class='title todo-title'>已完成</view>
+        <l-checkbox-group bind:linchange="change" data-index="3">
+          <l-checkbox
+            l-class="l-checkbox-color"
+            wx:for="{{items3}}"
+            wx:key="id"
+            placement="{{position}}"
+            key="{{item.name}}"
+            checked="{{true}}"
+            color='#FFE57F'
+            select-color='#ccc'
             disabled-color='#ccc'
+            
             disabled="{{item.id === 1}}"
           >
           {{item.name}}
@@ -33,7 +68,8 @@
 
     <content-card
       class="content"
-      name="自定义图标"
+      name="银行贷款"
+      isShowAddIcon="{{false}}"
       >
       <view class='buttun-wrapper'>
         <view class='title'>下面LOL英雄哪些可以隐身？</view>
@@ -59,7 +95,8 @@
 
     <content-card
             class="content"
-            name="已过期"
+            name="个人借款与其他"
+            isShowAddIcon="{{false}}"
     >
       <view class='buttun-wrapper'>
         <view class='title'>你最喜欢的男演员是？</view>
@@ -72,55 +109,9 @@
             placement="{{position}}"
             key="{{item.name}}"
             checked="{{item.checked}}"
-
             color='#FFE57F'
             select-color='#FFE57F'
             disabled-color='#ccc'
-          >
-            {{item.name}}
-          </l-checkbox>
-        </l-checkbox-group>
-      </view>
-    </content-card>
-    <content-card
-            class="content"
-            name="最近7天"
-    >
-      <view class='buttun-wrapper'>
-        <view class='title'>你最喜欢的男演员是？</view>
-        <l-checkbox-group l-class="l-checkbox-group" bind:linchange="change" data-index="11">
-          <l-checkbox
-            l-class="l-title-class-border"
-            l-disabled-class="l-checkbox-disabled"
-            wx:for="{{items11}}"
-            wx:key="id"
-            placement="{{position}}"
-            key="{{item.name}}"
-            checked="{{item.checked}}"
-          >
-            {{item.name}}
-          </l-checkbox>
-        </l-checkbox-group>
-      </view>
-    </content-card>
-    <content-card
-            class="content"
-            name="已完成"
-    >
-      <view class='buttun-wrapper'>
-        <view class='title'>你最喜欢的男演员是？</view>
-        <l-checkbox-group l-class="l-checkbox-group" bind:linchange="change" data-index="11">
-          <l-checkbox
-            l-class="l-title-class-border"
-            l-disabled-class="l-checkbox-disabled"
-            wx:for="{{items11}}"
-            wx:key="id"
-            placement="{{position}}"
-            key="{{item.name}}"
-            checked="{{item.checked}}"
-
-            select-color="#cccccc"
-            color="#cccccc"
           >
             {{item.name}}
           </l-checkbox>

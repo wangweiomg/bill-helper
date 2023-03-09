@@ -1,6 +1,6 @@
 export default [
   {
-    "pagePath": "/pages/navigator/index/index",
+    "pagePath": "/pages/navigator/todo/index",
     "text": "账单Todo",
     "iconPath": "/images/tabbar/base.png",
     "selectedIconPath": "/images/tabbar/base-select.png"
