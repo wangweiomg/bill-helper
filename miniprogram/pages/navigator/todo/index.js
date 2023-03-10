@@ -194,7 +194,77 @@ Page({
     });
   },
 
+  dueChange(e) {
+    let {items1, items3} = this.data;
+    let todo = items1.filter(i => i.name === e.detail.key)[0];
+    todo.checked = e.detail.checked;
+    items3.unshift(todo);
+    this.setData({
+      items1: items1.filter(i => i.name !== e.detail.key),
+      items3: items3
+    })
+
+  },
+
+  activeChange(e) {
+    // 删除active 的，增加 done的
+    let {items2, items3} = this.data;
+
+    let todo = items2.filter(i => i.name === e.detail.key)[0];
+    todo.checked = e.detail.checked;
+    items3.unshift(todo)
+    this.setData({
+      items2: items2.filter(i => i.name !== e.detail.key),
+      items3: items3
+    })
+
+    wx.lin.showMessage({
+      content: `${todo.name}    已完成!`,
+      type: 'success',
+      icon: 'success'
+    })
+
+  },
+
+
+  doneChange(e) {
+    
+    let {items1, items2, items3} = this.data 
+    
+    let todo = items3.filter(i => i.name === e.detail.key)[0];
+    todo.checked = e.detail.checked;
+    if (todo.status === 1) {
+      // 放进items1, 并排序
+      items1.push(todo)
+      // Todo 排序
+
+      this.setData({
+        items1: items1
+      })
+
+    } else if (todo.status === 0) {
+      // 放进items2， 并排序
+      items2.push(todo)
+      // todo 排序
+    
+      this.setData({
+        items2: items2
+      })
+    } else {
+      // 不合法，不处理
+    }
+
+    this.setData({
+      items3: items3.filter(i => i.name !== e.detail.key)
+    })
+
+
+
+
+
+  },
   change2(e) {
+
     let index = e.currentTarget.dataset['index'];
     let items = this.data[`items${index}`];
     items.forEach(item => {
@@ -234,7 +304,20 @@ Page({
       //   totalCardLimit: res.data.data.map(e => e.cardLimit).reduce((prev, curr) => prev + curr, 0) / 10000
       // })
 
-      console.log('todo page-->', res.data, res.data.data)
+      
+      const list = res.data.data;
+      const overdue = list.filter(i => i.type===1 && i.status===1); 
+      const active = list.filter(i => i.type===1 && i.status===0); 
+      const done = list.filter(i => i.type===1 && i.status>1); 
+      console.log('data-->', res.data.data);
+      console.log('overdue', overdue);
+      console.log('active', active);
+      console.log('done', done);
+      this.setData({
+        items1: overdue,
+        items2: active,
+        items3: done
+      })
 
     }).catch(err => console.error(err))
 

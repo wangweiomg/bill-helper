@@ -5,7 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
     form: {
       name: ''
     },
@@ -210,11 +209,60 @@ Page({
 
 
   },
+
+  removeCard(e){
+    wx.showToast({
+      title: `点击了${e.currentTarget.dataset.key}`,
+      
+    })
+
+    const cardId = e.currentTarget.dataset.key 
+
+    // 存在cardId 就是删除， 否则是取消
+    if (cardId !== undefined) {
+      // 删除后回到cardList page
+      wx.cloud.callContainer({
+        "config": {
+          "env": "prod-7gaxhaj4785afe65"
+        },
+        "path": "/api/card/remove/"+cardId,
+        "header": {
+          "X-WX-SERVICE": "springboot-kj23"
+        },
+        "method": "POST"
+      }).then(res => {
+        // 卡片
+        console.log('delete_card', res.data.data)
+        wx.reLaunch({
+          url: '/pages/navigator/base/index',
+        })
+  
+      }).catch(err => console.error(err))
+    } else {
+
+      wx.switchTab({
+        url: '/pages/navigator/base/index',
+      })
+    }
+
+    
+  
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     wx.lin.initValidateForm(this)
+
+    const eventChannel = this.getOpenerEventChannel()
+
+    eventChannel.on('sendCardData', (data) => {
+      console.log('received from prev data-->', data)
+      this.setData({
+        form: data
+      })
+    })
   },
 
   /**

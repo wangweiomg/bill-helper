@@ -11,52 +11,48 @@
       >
       <view class='buttun-wrapper'>
         <view class='title'>已过期</view>
-        <l-checkbox-group bind:linchange="change" data-index="3">
+        <l-checkbox-group bind:linchange="dueChange" data-index="1">
           <l-checkbox
             l-class="l-title-class-border"
-            wx:for="{{items3}}"
-            wx:key="id"
-            placement="{{position}}"
+            wx:for="{{items1}}"
+            wx:key="name"
             key="{{item.name}}"
             checked="{{item.checked}}"
             color='#FFE57F'
             select-color='#FFE57F'
             disabled-color="#ccc"
-            disabled="{{item.id === 1}}"
+            placement="{{position}}"
           >
           {{item.name}}
           </l-checkbox>
         </l-checkbox-group>
 
         <view class='title todo-title'>待处理</view>
-        <l-checkbox-group bind:linchange="change" data-index="3">
+        <l-checkbox-group bind:linchange="activeChange" data-index="2">
           <l-checkbox
             l-class="l-title-class-border"
-            wx:for="{{items3}}"
-            wx:key="id"
-            placement="{{position}}"
+            wx:for="{{items2}}"
+            wx:key="name"
             key="{{item.name}}"
             checked="{{item.checked}}"
-            disabled="{{item.id === 1}}"
+            placement="{{position}}"
           >
           {{item.name}}
           </l-checkbox>
         </l-checkbox-group>
 
         <view class='title todo-title'>已完成</view>
-        <l-checkbox-group bind:linchange="change" data-index="3">
+        <l-checkbox-group bind:linchange="doneChange" data-index="3">
           <l-checkbox
             l-class="l-checkbox-color"
             wx:for="{{items3}}"
-            wx:key="id"
-            placement="{{position}}"
+            wx:key="name"
             key="{{item.name}}"
-            checked="{{true}}"
-            color='#FFE57F'
+            checked="{{item.checked}}"
+            color='#ccc'
             select-color='#ccc'
             disabled-color='#ccc'
-            
-            disabled="{{item.id === 1}}"
+            placement="{{position}}"
           >
           {{item.name}}
           </l-checkbox>
@@ -64,7 +60,7 @@
       </view>
     </content-card>
 
-    
+
 
     <content-card
       class="content"
@@ -119,5 +115,6 @@
       </view>
     </content-card>
     
+    <l-message />
   </content-title>
 </view>

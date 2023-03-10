@@ -4,6 +4,7 @@
     "content-title": "/components/content-title/index",
     "content-card": "/components/content-card/index",
     "l-checkbox-group": "/dist/checkbox-group/index",
-    "l-checkbox": "/dist/checkbox/index"
+    "l-checkbox": "/dist/checkbox/index",
+    "l-message": "/dist/message/index"
   }
 }
