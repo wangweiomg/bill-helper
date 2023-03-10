@@ -7,6 +7,7 @@ Page({
    */
   data: {
     list: tabbar,
+    today: new Date(),
 
     items1: [{
       id: 1,
@@ -218,6 +219,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.cloud.callContainer({
+      "config": {
+        "env": "prod-7gaxhaj4785afe65"
+      },
+      "path": "/api/todo/list",
+      "header": {
+        "X-WX-SERVICE": "springboot-kj23"
+      },
+      "method": "GET"
+    }).then(res => {
+      // this.setData({
+      //   cardList: res.data.data,
+      //   totalCardLimit: res.data.data.map(e => e.cardLimit).reduce((prev, curr) => prev + curr, 0) / 10000
+      // })
+
+      console.log('todo page-->', res.data, res.data.data)
+
+    }).catch(err => console.error(err))
 
   },
 
@@ -239,6 +258,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide() {
+    console.log('todopage , onhide!!')
 
   },
 
@@ -246,6 +266,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
+
+    console.log('todo page, unload!!!')
 
   },
 

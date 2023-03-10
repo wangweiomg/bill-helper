@@ -182,8 +182,8 @@ Page({
 
   async submit(e) {
     const {detail} = e;
-    console.log('submit', detail, detail.values)
-    
+    const {id} = getApp().globalData.userInfo;
+    detail.values.userId = id;
     // 保存卡片信息
     await wx.cloud.callContainer({
       "config": {

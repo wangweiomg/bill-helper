@@ -16,6 +16,28 @@ App({
 
     }
 
-    this.globalData = {};
+
+    await wx.cloud.callContainer({
+      "config": {
+        "env": "prod-7gaxhaj4785afe65"
+      },
+      "path": "/api/user/upsert",
+      "header": {
+        "X-WX-SERVICE": "springboot-kj23"
+      },
+      "method": "POST"
+    }).then(res => {
+
+      if (res.data.code === 0) {
+
+        console.log('onLanuch, user-->', res.data.data)
+        this.globalData = {
+          userInfo: res.data.data
+        };
+      }
+
+    }).catch(err => console.error(err))
+
+    
   }
 });

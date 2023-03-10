@@ -11,21 +11,30 @@ Page({
    
   },
   clickListItem(e){
+    console.log('card-list-->', e)
     wx.showToast({
       title: `点击了${e.currentTarget.dataset.key}`,
       icon:'none'
     });
+    // wx.navigateTo({
+    //   url: '/pages/form/card/index',
+    //   success: (res) => {
+    //     // 通过eventChannel向被打开页面传送数据
+    //     // res.eventChannel.emit('sendCardData', )
+    //   }
+    // })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
   
+    const userId = getApp().globalData.userInfo.id;
     wx.cloud.callContainer({
       "config": {
         "env": "prod-7gaxhaj4785afe65"
       },
-      "path": "/api/card/list",
+      "path": "/api/card/list?userId="+userId,
       "header": {
         "X-WX-SERVICE": "springboot-kj23"
       },
