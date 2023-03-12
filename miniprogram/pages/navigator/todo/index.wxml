@@ -14,16 +14,17 @@
         <l-checkbox-group bind:linchange="dueChange" data-index="1">
           <l-checkbox
             l-class="l-title-class-border"
-            wx:for="{{items1}}"
-            wx:key="name"
-            key="{{item.name}}"
+            wx:for="{{ items }}"
+            wx:if="{{ item.status===1}}"
+            wx:key="id"
+            key="{{item.id}}"
             checked="{{item.checked}}"
             color='#FFE57F'
             select-color='#FFE57F'
             disabled-color="#ccc"
             placement="{{position}}"
           >
-          {{item.name}}
+            {{item.name}}
           </l-checkbox>
         </l-checkbox-group>
 
@@ -31,9 +32,10 @@
         <l-checkbox-group bind:linchange="activeChange" data-index="2">
           <l-checkbox
             l-class="l-title-class-border"
-            wx:for="{{items2}}"
-            wx:key="name"
-            key="{{item.name}}"
+            wx:for="{{items}}"
+            wx:if="{{ item.status===0}}"
+            wx:key="id"
+            key="{{item.id}}"
             checked="{{item.checked}}"
             placement="{{position}}"
           >
@@ -45,14 +47,14 @@
         <l-checkbox-group bind:linchange="doneChange" data-index="3">
           <l-checkbox
             l-class="l-checkbox-color"
-            wx:for="{{items3}}"
-            wx:key="name"
-            key="{{item.name}}"
+            wx:for="{{items}}"
+            wx:if="{{item.status > 1}}"
+            wx:key="id"
+            key="{{item.id}}"
             checked="{{item.checked}}"
+            placement="{{position}}"
             color='#ccc'
             select-color='#ccc'
-            disabled-color='#ccc'
-            placement="{{position}}"
           >
           {{item.name}}
           </l-checkbox>

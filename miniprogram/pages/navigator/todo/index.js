@@ -8,54 +8,7 @@ Page({
   data: {
     list: tabbar,
     today: new Date(),
-
-    items1: [{
-      id: 1,
-      name: '青花瓷',
-      checked: true
-    }, {
-      id: 2,
-      name: '双截棍',
-      checked: false
-    }, {
-      id: 3,
-      name: '一千年以后',
-      checked: false
-    }, {
-      id: 4,
-      name: '江南',
-      checked: true
-    }],
-    items2: [{
-      id: 1,
-      name: '功夫',
-      checked: false
-    }, {
-      id: 2,
-      name: '喜剧之王',
-      checked: false
-    }, {
-      id: 3,
-      name: '少林足球',
-      checked: false
-    }],
-    items3: [{
-      id: 1,
-      name: '春天',
-      checked: true
-    }, {
-      id: 2,
-      name: '夏天',
-      checked: false
-    }, {
-      id: 3,
-      name: '秋天',
-      checked: false
-    }, {
-      id: 4,
-      name: '冬天',
-      checked: false
-    }],
+    items: [],
     items4: [{
       id: 1,
       name: '单刀赴会',
@@ -195,27 +148,31 @@ Page({
   },
 
   dueChange(e) {
-    let {items1, items3} = this.data;
-    let todo = items1.filter(i => i.name === e.detail.key)[0];
+    let {items} = this.data;
+    let todo = items.find(i => i.id == e.detail.key);
     todo.checked = e.detail.checked;
-    items3.unshift(todo);
+    todo.status = 3;
     this.setData({
-      items1: items1.filter(i => i.name !== e.detail.key),
-      items3: items3
+      items: items
     })
 
+    wx.lin.showMessage({
+      content: `${todo.name}    已完成!`,
+      type: 'warning',
+      icon: 'warning'
+    })
   },
 
   activeChange(e) {
     // 删除active 的，增加 done的
-    let {items2, items3} = this.data;
+    let {items} = this.data;
+    console.log('active e-->', e)
 
-    let todo = items2.filter(i => i.name === e.detail.key)[0];
+    let todo = items.find(i => i.id == e.detail.key);
     todo.checked = e.detail.checked;
-    items3.unshift(todo)
+    todo.status = 2;
     this.setData({
-      items2: items2.filter(i => i.name !== e.detail.key),
-      items3: items3
+      items: items
     })
 
     wx.lin.showMessage({
@@ -229,38 +186,29 @@ Page({
 
   doneChange(e) {
     
-    let {items1, items2, items3} = this.data 
+    console.log('done e-->', e)
+    let {items} = this.data 
     
-    let todo = items3.filter(i => i.name === e.detail.key)[0];
+    let todo = items.find(i => i.id == e.detail.key);
     todo.checked = e.detail.checked;
-    if (todo.status === 1) {
-      // 放进items1, 并排序
-      items1.push(todo)
-      // Todo 排序
-
-      this.setData({
-        items1: items1
-      })
-
-    } else if (todo.status === 0) {
-      // 放进items2， 并排序
-      items2.push(todo)
-      // todo 排序
     
-      this.setData({
-        items2: items2
-      })
+    if (todo.status === 2) {
+      todo.status = 0;
+    } else if (todo.status === 3) {
+      todo.status = 1;
     } else {
       // 不合法，不处理
     }
-
     this.setData({
-      items3: items3.filter(i => i.name !== e.detail.key)
+      items: items
     })
 
-
-
-
+    wx.lin.showMessage({
+      content: `${todo.name}    已取消完成!`,
+      type: 'error',
+      icon: 'error'
+    })
+    
 
   },
   change2(e) {
@@ -285,25 +233,18 @@ Page({
       duration: 2000
     });
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
+
+  requestTodoList(userId) {
     wx.cloud.callContainer({
       "config": {
         "env": "prod-7gaxhaj4785afe65"
       },
-      "path": "/api/todo/list",
+      "path": "/api/todo/list?userId="+userId,
       "header": {
         "X-WX-SERVICE": "springboot-kj23"
       },
       "method": "GET"
     }).then(res => {
-      // this.setData({
-      //   cardList: res.data.data,
-      //   totalCardLimit: res.data.data.map(e => e.cardLimit).reduce((prev, curr) => prev + curr, 0) / 10000
-      // })
-
       
       const list = res.data.data;
       const overdue = list.filter(i => i.type===1 && i.status===1); 
@@ -314,19 +255,45 @@ Page({
       console.log('active', active);
       console.log('done', done);
       this.setData({
+        items: list,
         items1: overdue,
         items2: active,
         items3: done
       })
 
     }).catch(err => console.error(err))
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad(options) {
+    const app = getApp()
+    
+    if (app.globalData === undefined || app.globalData.userInfo === undefined) {
+      console.log('no global')
+      // 没有取到，就调用回调函数
+      app.globalDataCallback = (user) => {
+        if (user !== undefined) {
+          userId = user.id;
+          console.log('callback-->', user)
+          this.requestTodoList(user.id)
+        }
+      }
+      
+    } else {
+      userId = app.globalData.userInfo.id;
+      console.log('have global')
+      this.requestTodoList(userId)
+    } 
 
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
+    
 
   },
 
@@ -341,7 +308,24 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide() {
+    const userId = getApp().globalData.userInfo.id;
     console.log('todopage , onhide!!')
+    // 更新todos
+    wx.cloud.callContainer({
+      "config": {
+        "env": "prod-7gaxhaj4785afe65"
+      },
+      "path": "/api/todo/update?userId="+userId,
+      "header": {
+        "X-WX-SERVICE": "springboot-kj23"
+      },
+      "method": "POST",
+      "data": JSON.stringify(this.items)
+    }).then(res => {
+      console.log('update todos', res.data)
+
+    }).catch(err => console.error(err))
+
 
   },
 

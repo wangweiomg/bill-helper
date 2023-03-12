@@ -20,7 +20,7 @@
                     </l-form-item>
                     
                     <l-form-item label="还款日类型:" name="repayDayType">
-                        <l-radio-group bind:linchange="changeSubmitValidate" id="repayDayType" current="{{form.repayDayType}}" none-checked="{{false}}" placement="row" l-class="tip-type">
+                        <l-radio-group bind:linchange="changeSubmitValidate" id="repayDayType" current="{{form.repayDayType === undefined ? 1 : form.repayDayType}}" none-checked="{{false}}" placement="row" l-class="tip-type">
                             <l-radio key="1">
                                 固定日n
                             </l-radio>

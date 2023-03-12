@@ -12,11 +12,14 @@
         wx:for-item="card"
         wx:key="{{card.id}}" 
         title="{{card.name}}"
-        icon="cart"
         data-key="{{card.id}}"
         desc="账单日:{{card.billDay}}，还款日:{{card.repayDayType===1 ? card.repayDayNum : '账单日后'+card.repayDayNum+'天' }}"
         right-desc="额度：{{card.cardLimit}}"
         bind:lintap="clickListItem"
+        tag-content="账单日: {{card.billDay}}" 
+        tag-color="#31C0A4"
+        tagShape="circle"
+        tag-position="right"
       ></l-list>
     </content-card>
 

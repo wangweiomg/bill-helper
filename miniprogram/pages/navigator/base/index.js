@@ -12,10 +12,7 @@ Page({
   },
   clickListItem(e){
     console.log('card-list-->', e)
-    wx.showToast({
-      title: `点击了${e.currentTarget.dataset.key}`,
-      icon:'none'
-    });
+    
     wx.navigateTo({
       url: '/pages/form/card/index',
       success: (res) => {

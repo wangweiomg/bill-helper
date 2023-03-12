@@ -1,6 +1,6 @@
 // app.js
 App({
-  async onLaunch() {
+  onLaunch() {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力');
     } else {
@@ -17,7 +17,7 @@ App({
     }
 
 
-    await wx.cloud.callContainer({
+    wx.cloud.callContainer({
       "config": {
         "env": "prod-7gaxhaj4785afe65"
       },
@@ -34,6 +34,10 @@ App({
         this.globalData = {
           userInfo: res.data.data
         };
+
+        if (this.globalDataCallback) {
+          this.globalDataCallback(res.data.data)
+        }
       }
 
     }).catch(err => console.error(err))

@@ -6,6 +6,7 @@ Page({
    */
   data: {
     form: {
+      id: '',
       name: ''
     },
     loginForm: {
@@ -183,6 +184,11 @@ Page({
     const {detail} = e;
     const {id} = getApp().globalData.userInfo;
     detail.values.userId = id;
+    if (this.data.form.id !== '') {
+      detail.values.cardId = this.data.form.id
+    }
+
+    console.log('cardparam -->', detail.values)
     // 保存卡片信息
     await wx.cloud.callContainer({
       "config": {
