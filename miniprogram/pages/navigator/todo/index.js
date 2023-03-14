@@ -9,6 +9,7 @@ Page({
     list: tabbar,
     today: new Date(),
     items: [],
+    items_changed: [],
     items4: [{
       id: 1,
       name: '单刀赴会',
@@ -148,12 +149,17 @@ Page({
   },
 
   dueChange(e) {
-    let {items} = this.data;
+    let {items, items_changed} = this.data;
     let todo = items.find(i => i.id == e.detail.key);
     todo.checked = e.detail.checked;
     todo.status = 3;
+
+    items_changed = items_changed.filter(i => i.id !== todo.id);
+    items_changed.push(todo);
+
     this.setData({
-      items: items
+      items: items,
+      items_changed: items_changed
     })
 
     wx.lin.showMessage({
@@ -165,16 +171,23 @@ Page({
 
   activeChange(e) {
     // 删除active 的，增加 done的
-    let {items} = this.data;
+    let {items, items_changed} = this.data;
     console.log('active e-->', e)
 
     let todo = items.find(i => i.id == e.detail.key);
     todo.checked = e.detail.checked;
     todo.status = 2;
+
+    items_changed = items_changed.filter(i => i.id !== todo.id);
+    items_changed.push(todo);
+
+
     this.setData({
-      items: items
+      items: items,
+      items_changed: items_changed
     })
 
+    console.log('active items-->', items)
     wx.lin.showMessage({
       content: `${todo.name}    已完成!`,
       type: 'success',
@@ -187,7 +200,7 @@ Page({
   doneChange(e) {
     
     console.log('done e-->', e)
-    let {items} = this.data 
+    let {items, items_changed} = this.data 
     
     let todo = items.find(i => i.id == e.detail.key);
     todo.checked = e.detail.checked;
@@ -199,9 +212,16 @@ Page({
     } else {
       // 不合法，不处理
     }
+
+    items_changed = items_changed.filter(i => i.id !== todo.id);
+    items_changed.push(todo);
+
     this.setData({
-      items: items
+      items: items,
+      items_changed: items_changed
     })
+
+    console.log('done items-->', items)
 
     wx.lin.showMessage({
       content: `${todo.name}    已取消完成!`,
@@ -247,18 +267,8 @@ Page({
     }).then(res => {
       
       const list = res.data.data;
-      const overdue = list.filter(i => i.type===1 && i.status===1); 
-      const active = list.filter(i => i.type===1 && i.status===0); 
-      const done = list.filter(i => i.type===1 && i.status>1); 
-      console.log('data-->', res.data.data);
-      console.log('overdue', overdue);
-      console.log('active', active);
-      console.log('done', done);
       this.setData({
-        items: list,
-        items1: overdue,
-        items2: active,
-        items3: done
+        items: list
       })
 
     }).catch(err => console.error(err))
@@ -308,8 +318,13 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide() {
+    let {items, items_changed} = this.data
+    if (items_changed.length == 0) {
+      return;
+    }
+
     const userId = getApp().globalData.userInfo.id;
-    console.log('todopage , onhide!!')
+    console.log('todopage , onhide! changed-->', items, items_changed)
     // 更新todos
     wx.cloud.callContainer({
       "config": {
@@ -320,9 +335,13 @@ Page({
         "X-WX-SERVICE": "springboot-kj23"
       },
       "method": "POST",
-      "data": JSON.stringify(this.items)
+      "data": JSON.stringify(items_changed)
     }).then(res => {
       console.log('update todos', res.data)
+      // changed 修改为空
+      this.setData({
+        items_changed: []
+      })
 
     }).catch(err => console.error(err))
 

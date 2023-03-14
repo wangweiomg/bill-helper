@@ -51,7 +51,7 @@
             wx:if="{{item.status > 1}}"
             wx:key="id"
             key="{{item.id}}"
-            checked="{{item.checked}}"
+            checked="{{item.status > 1}}"
             placement="{{position}}"
             color='#ccc'
             select-color='#ccc'
